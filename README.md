@@ -101,7 +101,8 @@
 - 本地服务保护：`localhost.weixin.qq.com` 固定解析到 `127.0.0.1` 并强制直连，避免 fake-IP 影响微信本地回调
 - TUN 直连优化：iCloud Photos / CloudKit / Apple CDN 域名使用系统 DNS 并跳过代理，保留 Apple Push 走代理
 - DNS 上游：移除 `doh.pub`，默认使用 AliDNS DoH + 腾讯 DNS / AliDNS 普通 DNS，减少 DoH 长尾超时
-- 局域网解析保护：`*.in-addr.arpa`、`*.ip6.arpa`、`*.local` 交给系统解析，并补充常见 DNS-SD 反查模式，避免 Bonjour / PTR 反查打到公共 DoH
+- 局域网解析保护：`*.in-addr.arpa`、`*.ip6.arpa`、`*.local` 前置直连并交给系统解析，补充常见 DNS-SD 反查模式，避免 Bonjour / PTR 反查打到公共 DoH
+- TUN 边界：保留 `198.18.0.0/15` 给 fake-IP / TUN 内部使用，不加入排除路由，私网桥接网段仍通过 `10.0.0.0/8`、`192.168.0.0/16` 等排除
 - Apple 推送：默认走代理
    - `push.apple.com`
    - `gateway.push.apple.com`
