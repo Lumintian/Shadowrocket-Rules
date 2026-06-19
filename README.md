@@ -99,7 +99,8 @@
 - HTTPDNS 拦截：引用 blackmatrix7 `BlockHttpDNS`，阻止 App 通过内置 HTTPDNS 绕过系统解析
 - QUIC 屏蔽：对代理连接屏蔽 UDP/443，强制回退 HTTP/2
 - 本地服务保护：`localhost.weixin.qq.com` 固定解析到 `127.0.0.1` 并强制直连，避免 fake-IP 影响微信本地回调
-- TUN 直连优化：iCloud Photos / CloudKit / Apple CDN 域名使用 AliDNS DoH 并跳过代理，保留 Apple Push 走代理
+- TUN 直连优化：iCloud Photos / CloudKit / Apple CDN 域名使用系统 DNS 并跳过代理，保留 Apple Push 走代理
+- 局域网解析保护：`*.in-addr.arpa`、`*.ip6.arpa`、`*.local` 交给系统解析，避免 Bonjour / DNS-SD 反查打到公共 DoH
 - Apple 推送：默认走代理
    - `push.apple.com`
    - `gateway.push.apple.com`
